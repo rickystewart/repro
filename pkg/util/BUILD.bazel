@@ -4,6 +4,9 @@ load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
 
 go_library(
     name = "util",
+    srcs = [
+        "unresolved_addr.go",
+    ],
     embed = [":util_go_proto"],
     importpath = "github.com/cockroachdb/cockroach/pkg/util",
     visibility = ["//visibility:public"],
