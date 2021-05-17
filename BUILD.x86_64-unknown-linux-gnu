@@ -1,0 +1,67 @@
+package(default_visibility = ["//visibility:public"])
+
+load(":cc_toolchain_config.bzl", "cc_toolchain_config")
+
+cc_toolchain_suite(
+    name = "suite",
+    toolchains = {
+        "k8": ":toolchain",
+    },
+)
+
+cc_toolchain_config(name = "toolchain_config")
+
+filegroup(name = "empty")
+
+filegroup(
+    name = "all_files",
+    srcs = [
+        ":compiler_files",
+        ":linker_files",
+        ":objcopy_files",
+        ":strip_files",
+    ],
+)
+
+filegroup(
+    name = "compiler_files",
+    srcs = [
+        "bin/x86_64-unknown-linux-gnu-gcc",
+        "bin/x86_64-unknown-linux-gnu-g++",
+    ],
+)
+
+filegroup(
+    name = "linker_files",
+    srcs = [
+        "bin/x86_64-unknown-linux-gnu-gcc",
+        "bin/x86_64-unknown-linux-gnu-ar",
+    ],
+)
+
+filegroup(
+    name = "objcopy_files",
+    srcs = [
+        "bin/x86_64-unknown-linux-gnu-objcopy",
+    ],
+)
+
+filegroup(
+    name = "strip_files",
+    srcs = [
+        "bin/x86_64-unknown-linux-gnu-strip",
+    ],
+)
+
+cc_toolchain(
+    name = "toolchain",
+    toolchain_identifier = "x86_64-unknown-linux-gnu-cross-toolchain",
+    toolchain_config = ":toolchain_config",
+    all_files = ":all_files",
+    compiler_files = ":compiler_files",
+    dwp_files = ":empty",
+    linker_files = ":linker_files",
+    objcopy_files = ":objcopy_files",
+    strip_files = ":strip_files",
+    supports_param_files = 0,
+)
