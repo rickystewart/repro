@@ -38,3 +38,5 @@ build/Railroad.jar
 
 # Per-user .bazelrc
 /.bazelrc.user
+
+libtest/libtest*
