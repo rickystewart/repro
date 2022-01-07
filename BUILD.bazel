@@ -1,0 +1,18 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_path")
+
+go_library(
+    name = "repro",
+    srcs = [
+        "file1.go",
+        "file2.go",
+    ],
+    importpath = "github.com/cockroachdb/rickystewart/repro",
+)
+
+go_path(
+    name = "go_path",
+    mode = "link",
+    deps = [
+        ":repro",
+    ],
+)
