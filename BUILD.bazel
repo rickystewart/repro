@@ -1,3 +1,4 @@
+load("@bazel_gazelle//:def.bzl", "gazelle")
 load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_path")
 
 go_library(
@@ -6,7 +7,8 @@ go_library(
         "file1.go",
         "file2.go",
     ],
-    importpath = "github.com/cockroachdb/rickystewart/repro",
+    importpath = "github.com/rickystewart/repro",
+    visibility = ["//visibility:public"],
 )
 
 go_path(
@@ -15,4 +17,12 @@ go_path(
     deps = [
         ":repro",
     ],
+)
+
+# gazelle:prefix github.com/rickystewart/repro
+# gazelle:build_file_name BUILD.bazel
+
+gazelle(
+    name = "gazelle",
+    prefix = "github.com/rickystewart/repro",
 )
